@@ -1,9 +1,6 @@
-from audioop import add
-
-
 class Processor:
     def __init__(self,id):
-        self.id=id
+        self.ID=id
     
     def calc(self):
         print("Calc")
