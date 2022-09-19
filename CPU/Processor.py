@@ -3,7 +3,7 @@ class Processor:
         self.ID=id
     
     def calc(self):
-        print("Calc")
+        print(self.ID+": Calc()")
     
     def write(self,address,data):
         print("WRITE DATA "+data+" IN ADDRESS "+address)
@@ -11,4 +11,5 @@ class Processor:
     def read(self,address):
         print("READ ADDRESS "+address)
 
-    
+#cpu_01=Processor("CPU@01")
+#cpu_01.calc()
