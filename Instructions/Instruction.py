@@ -21,6 +21,14 @@ class Instruction:
     def set_data(self, data):
         self.DATA=data
 
+    def print(self):
+        if(self.OPERATION=="WRITE"):
+            print(self.OPERATION,self.ADDRESS+';'+self.DATA)
+        elif(self.OPERATION=="READ"):
+            print(self.OPERATION,self.ADDRESS)
+        else:
+            print(self.OPERATION)
+
     def read(self, cpu, address):
         self.CPU=cpu
         self.OPERATION="read"

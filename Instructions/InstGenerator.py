@@ -41,5 +41,4 @@ class InstructionGenerator:
 inst=InstructionGenerator()
 #inst.dataGenerate()
 inst.generate()
-print("Operation: ",inst.instruction.OPERATION,"\nData: ",
-inst.instruction.DATA,"\nAddr: ",inst.instruction.ADDRESS)
+inst.instruction.print()
