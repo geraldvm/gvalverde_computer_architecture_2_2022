@@ -22,7 +22,6 @@ class InstructionGenerator:
     
     def __dataGenerate(self):
         hexa=hex(random.randint(0, 65535)) #16 Bits
-        #print(hexa)
         return hexa
     
     def generate(self):
@@ -41,4 +40,4 @@ class InstructionGenerator:
 inst=InstructionGenerator()
 #inst.dataGenerate()
 inst.generate()
-inst.instruction.print()
+inst.instruction.iprint()

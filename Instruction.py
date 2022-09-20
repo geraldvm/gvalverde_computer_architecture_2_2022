@@ -1,8 +1,3 @@
-
-from audioop import add
-from zlib import DEF_BUF_SIZE
-
-
 class Instruction:
     def __init__(self):
         self.CPU=0
@@ -21,13 +16,21 @@ class Instruction:
     def set_data(self, data):
         self.DATA=data
 
-    def print(self):
+    def iprint(self):
         if(self.OPERATION=="WRITE"):
-            print(self.OPERATION,self.ADDRESS+';'+self.DATA)
+            print(self.OPERATION+' '+self.ADDRESS+';'+self.DATA)
         elif(self.OPERATION=="READ"):
-            print(self.OPERATION,self.ADDRESS)
+            print(self.OPERATION+' '+self.ADDRESS)
         else:
             print(self.OPERATION)
+    
+    def istring(self):
+        if(self.OPERATION=="WRITE"):
+            return self.OPERATION+' '+self.ADDRESS+';'+self.DATA
+        elif(self.OPERATION=="READ"):
+            return self.OPERATION+' '+self.ADDRESS
+        else:
+            return self.OPERATION
 
     def read(self, cpu, address):
         self.CPU=cpu
