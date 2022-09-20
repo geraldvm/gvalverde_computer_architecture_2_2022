@@ -1,4 +1,4 @@
-import MemoryBlock
+from MemoryBlock import *
 
 class Memory:
     def __init__(self):
@@ -6,7 +6,17 @@ class Memory:
         MemoryBlock('1000'),MemoryBlock('1010'),MemoryBlock('1100'),MemoryBlock('1110')]
 
     def get_block(self,address):
-        return self.block[address]
+        for mem in self.block:
+            if(mem.ADDRESS==address):
+                return mem
+        return -1
 
     def set_block(self,address,data):
-        self.block[address].set_data(data)
+        for mem in self.block:
+            if(mem.ADDRESS==address):
+                mem.set_data(data)
+                break
+
+mem= Memory()
+mem.set_block('0000',58)
+print(mem.get_block('0000').get_data())
