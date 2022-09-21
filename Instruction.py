@@ -1,10 +1,11 @@
 class Instruction:
-    def __init__(self):
+    def __init__(self, processor_id):
         self.__operations=["READ", "WRITE","CALC"]
         self.__mem_addr=['0000','0010','0100','0110','1000','1010','1100','1110','-1']
         self.OPERATION=''
         self.DATA=-1
         self.ADDRESS='-1'
+        self.PROC_ID=processor_id
         
     
     def set_operation(self, ind):

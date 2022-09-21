@@ -6,7 +6,7 @@ from Instruction import *
 class Processor:
     def __init__(self,id):
         self.ID=id
-        self.generator=InstructionGenerator()
+        self.generator=InstructionGenerator(self.ID)
         self.EXCECUTION_MODE=0x200
         #0x100 -> MANUAL
         #0x200 -> AUTOMATIC

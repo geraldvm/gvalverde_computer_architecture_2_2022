@@ -23,7 +23,12 @@ class Memory:
     
     def getMemory(self):
         return self.block
+    
+    def iprint(self):
+        for mem in self.block:
+            print('¦ '+mem.ADDRESS+': '+str(mem.DATA)+' ¦\n')
 
-#mem= Memory()
+mem= Memory(5)
 #mem.set_block('0000',58)
 #print(mem.get_block('0000').get_data())
+mem.iprint()

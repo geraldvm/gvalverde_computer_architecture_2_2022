@@ -1,12 +1,13 @@
 import time, math, random, threading
 from Instruction import *
 class InstructionGenerator:
-    def __init__(self):
+    def __init__(self,processor_id):
         self.__operations= ['CALC','READ','WRITE']
-        self.instruction=Instruction()
+        self.instruction=Instruction(processor_id)
         self.__READ_OPERATION=0
         self.__WRITE_OPERATION=1
         self.__CALC_OPERATION=2
+        self.PROC_ID=processor_id
 
     def Poisson_distribution(self, x, lam=1):
         fact = math.factorial(x)
