@@ -1,11 +1,11 @@
 class Instruction:
     def __init__(self):
-        self.CPU=0
         self.__operations=["READ", "WRITE","CALC"]
-        self.__mem_addr=['0000','0010','0100','0110','1000','1010','1100','1110']
+        self.__mem_addr=['0000','0010','0100','0110','1000','1010','1100','1110','-1']
         self.OPERATION=''
         self.DATA=-1
         self.ADDRESS='-1'
+        
     
     def set_operation(self, ind):
         self.OPERATION=self.__operations[ind]
@@ -32,20 +32,17 @@ class Instruction:
         else:
             return self.OPERATION
 
-    def read(self, cpu, address):
-        self.CPU=cpu
+    def read(self, address):
         self.OPERATION="read"
         self.DATA=0x0
         self.ADDRESS=address
 
-    def write(self, cpu, address, data):
-        self.CPU=cpu
+    def write(self, address, data):
         self.OPERATION="write"
         self.DATA=data
         self.ADDRESS=address
 
-    def calc(self,cpu):
-        self.CPU=0
+    def calc(self):
         self.OPERATION="calc"
         self.DATA=0x0
         self.ADDRESS=0000

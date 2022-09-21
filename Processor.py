@@ -7,6 +7,9 @@ class Processor:
     def __init__(self,id):
         self.ID=id
         self.generator=InstructionGenerator()
+        self.EXCECUTION_MODE=0x200
+        #0x100 -> MANUAL
+        #0x200 -> AUTOMATIC
     
     def calc(self):
         print(self.ID+": Calc()")
@@ -14,12 +17,18 @@ class Processor:
     def run(self,timer):
         i=0
         while i<5:
-            
-            self.generator.generate()
-            instruction=self.generator.instruction
-            #instruction.iprint()
-            print(self.ID+': '+instruction.istring()+'\n')
-            sleep(timer)
+            if(0x200==self.EXCECUTION_MODE):
+                self.generator.auto_generate()
+                instruction=self.generator.instruction
+                #instruction.iprint()
+                print(self.ID+': '+instruction.istring()+'\n')
+                sleep(timer)
+            else:
+                print("MANUAL EXCECUTION MODE")
+                instruction = self.generator.man_generate()
+                print(self.ID+': '+instruction.istring()+'\n')
+                sleep(timer)
+                #instruction=self.generator.
             i+=1
 
     

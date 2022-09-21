@@ -4,14 +4,15 @@ class InstructionGenerator:
     def __init__(self):
         self.__operations= ['CALC','READ','WRITE']
         self.instruction=Instruction()
+        self.__READ_OPERATION=0
+        self.__WRITE_OPERATION=1
+        self.__CALC_OPERATION=2
 
-# Funcion para calcular la distribucion de Poisson
     def Poisson_distribution(self, x, lam=1):
         fact = math.factorial(x)
         prob = (math.pow(lam, x)* math.exp(-lam)) / fact
         return prob
-    
-    # Funcion para generar numero random siguiendo Poisson
+   
     def __randomPoisson(self, range):
 
         while True:        
@@ -24,7 +25,7 @@ class InstructionGenerator:
         hexa=hex(random.randint(0, 65535)) #16 Bits
         return hexa
     
-    def generate(self):
+    def auto_generate(self):
         ind=self.__randomPoisson(2)
         self.instruction.set_operation(ind)
         addr=self.__randomPoisson(7)
@@ -35,9 +36,24 @@ class InstructionGenerator:
             self.instruction.set_address(addr)
         return self.instruction
 
+    def man_generate(self):
+        self.instruction.set_operation(self.__CALC_OPERATION)
+        self.instruction.set_address(8)
+        self.instruction.set_data(-1)
+        return self.instruction
 
-
-inst=InstructionGenerator()
-#inst.dataGenerate()
-inst.generate()
-inst.instruction.iprint()
+    def man_generate(self, address):
+        self.instruction.set_operation(self.__READ_OPERATION)
+        self.instruction.set_address(address)
+        self.instruction.set_data(-1)
+        return self.instruction
+    
+    def man_generate(self, address, data):
+        self.instruction.set_operation(self.__WRITE_OPERATION)
+        self.instruction.set_address(address)
+        self.instruction.set_data(data)
+        return self.instruction
+        
+#inst=InstructionGenerator()
+#inst.generate()
+#inst.instruction.iprint()
