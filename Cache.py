@@ -7,9 +7,9 @@ class Cache:
         print("Ca$h Memory")
     
     def iprint(self):
-        print('¦    ID   ¦  SET  ¦  STATE  ¦     TAG     ¦    DATA    ¦\n')
+        print('¦   ID   ¦  SET  ¦  STATE  ¦    TAG    ¦    DATA    ¦\n')
         for cash in self.BLOCKS:
-            print('¦ '+cash.ID+' ¦ '+str(cash.SET)+' ¦ '+cash.STATE+' ¦ '+cash.TAG+' ¦ '+hex(cash.DATA)+' ¦ \n')
+            print('¦ '+cash.ID+' ¦   '+str(cash.SET)+'   ¦    '+cash.STATE+'    ¦    '+cash.TAG+'   ¦ '+hex(cash.DATA)+' ¦ \n')
 
 cash= Cache("CPU@03")
 cash.iprint()
