@@ -1,10 +1,10 @@
 class CacheBlock:
     def __init__(self, ID, SET):
-        self.ID=ID
-        self.STATE='S'
-        self.SET=SET
-        self.TAG='0000'
-        self.DATA=0
+        self.ID=ID #Processor associative
+        self.SET=SET #Block Number
+        self.STATE='S' #Coherency state
+        self.TAG='' #Memory Address
+        self.DATA=0x0 #16 Bits Data
 
     def read(self, address):
         if (self.TAG==address):
@@ -13,6 +13,12 @@ class CacheBlock:
     def write(self,address, data):
         self.DATA=data
         self.TAG=address
+    
+    def write_miss(self):
+        print("write_miss L1 at set"+self.SET+" in "+self.ID)
+    
+    def read_miss(self):
+        print("read_miss L1 at set "+self.SET+" in "+self.ID)
     
     
     def set_coherency(self,state):

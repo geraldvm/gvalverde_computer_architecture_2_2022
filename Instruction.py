@@ -19,7 +19,7 @@ class Instruction:
 
     def iprint(self):
         if(self.OPERATION=="WRITE"):
-            print(self.OPERATION+' '+self.ADDRESS+';'+self.DATA)
+            print(self.OPERATION+' '+self.ADDRESS+';'+hex(self.DATA))
         elif(self.OPERATION=="READ"):
             print(self.OPERATION+' '+self.ADDRESS)
         else:
@@ -27,7 +27,7 @@ class Instruction:
     
     def istring(self):
         if(self.OPERATION=="WRITE"):
-            return self.OPERATION+' '+self.ADDRESS+';'+self.DATA
+            return self.OPERATION+' '+self.ADDRESS+';'+hex(self.DATA)
         elif(self.OPERATION=="READ"):
             return self.OPERATION+' '+self.ADDRESS
         else:

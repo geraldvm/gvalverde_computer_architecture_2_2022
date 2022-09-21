@@ -26,7 +26,7 @@ class Memory:
     
     def iprint(self):
         for mem in self.block:
-            print('¦ '+mem.ADDRESS+': '+str(mem.DATA)+' ¦\n')
+            print('¦ '+mem.ADDRESS+': '+hex(mem.DATA)+' ¦\n')
 
 mem= Memory(5)
 #mem.set_block('0000',58)
