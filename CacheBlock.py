@@ -1,27 +1,22 @@
-import CacheBlockUnit
-
 class CacheBlock:
     def __init__(self, ID, SET):
         self.ID=ID
-        self.COHERENCY='S'
+        self.STATE='S'
         self.SET=SET
         self.TAG='0000'
         self.DATA=0
 
-    def get_blocks(self):
-        return self.BLOCKS
+    def read(self, address):
+        if (self.TAG==address):
+            return self.DATA
     
-    def get_block(self,block_number):
-        return self.BLOCKS[block_number]
-    
-    def set_data(self,data):
+    def write(self,address, data):
         self.DATA=data
+        self.TAG=address
     
-    def get_data(self):
-        return self.DATA
     
     def set_coherency(self,state):
-        self.COHERENCY=state
+        self.STATE=state
     
     """
     Estado de coherencia: M (modificado), S (shared), I (inv´alido), E (exclusive).
