@@ -2,7 +2,7 @@ class CacheBlock:
     def __init__(self, ID, SET):
         self.ID=ID #Processor associative
         self.SET=SET #Block Number
-        self.STATE='S' #Coherency state
+        self.STATE='0' #Coherency state
         self.TAG='1111' #Memory Address
         self.DATA=0x0 #16 Bits Data
 
