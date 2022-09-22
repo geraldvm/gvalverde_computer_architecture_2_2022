@@ -12,7 +12,7 @@ class Memory:
             if(mem.ADDRESS==address):
                 sleep(self.__timer)
                 return mem
-        return -1
+        return False
 
     def write(self,address,data):
         sleep(self.__timer)
@@ -28,7 +28,7 @@ class Memory:
         for mem in self.block:
             print('¦ '+mem.ADDRESS+': '+hex(mem.DATA)+' ¦\n')
 
-mem= Memory(5)
+#mem= Memory(5)
 #mem.set_block('0000',58)
 #print(mem.get_block('0000').get_data())
-mem.iprint()
+#mem.iprint()

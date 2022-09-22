@@ -1,3 +1,4 @@
+from genericpath import exists
 from CacheBlock import *
 
 class Cache:
@@ -17,6 +18,12 @@ class Cache:
             if(block.TAG==address):
                 return True
         return False
+    
+    def get_block(self,address):
+        for block in self.BLOCKS:
+            if(block.TAG==address):
+                return block.SET
+        return -1
 
 
 #cash= Cache("CPU@03")
