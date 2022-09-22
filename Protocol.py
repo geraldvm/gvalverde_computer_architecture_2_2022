@@ -2,7 +2,7 @@ from re import search
 from Cache import Cache
 from CacheBlock import *
 from Memory import Memory
-
+#https://www.youtube.com/watch?v=ndyKrPMUqwE&ab_channel=ERAIngenier%C3%ADa
 class Bus:
     def __init__(self,cache_list, memory):
         self.CACHE_LIST=cache_list
@@ -69,6 +69,23 @@ class Bus:
         self.CACHE_LIST[ind].BLOCKS[set].STATE='S'
         self.CACHE_LIST[ind].BLOCKS[set].DATA=data
         self.CACHE_LIST[ind].BLOCKS[set].TAG=address
+
+    def write(self, ID, address,data):
+        self.__write_modified()
+
+    def __write_modified(self, ID, address,data):
+        # STATE: Shared
+        positions_list = self.__search_data_other_cache(ID,address)
+        ind = self.__search_cache(ID)
+        for pos in positions_list:
+            set=self.CACHE_LIST[pos].get_block(address)
+            self.CACHE_LIST[pos].BLOCKS[set].STATE='I'
+
+        set=self.CACHE_LIST[ind].get_block(address)
+        self.CACHE_LIST[ind].BLOCKS[set].STATE='M'
+        self.CACHE_LIST[ind].BLOCKS[set].DATA=data
+        self.CACHE_LIST[ind].BLOCKS[set].TAG=address
+        
         
         
 
