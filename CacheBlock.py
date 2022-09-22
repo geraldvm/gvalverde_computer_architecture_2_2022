@@ -3,7 +3,7 @@ class CacheBlock:
         self.ID=ID #Processor associative
         self.SET=SET #Block Number
         self.STATE='S' #Coherency state
-        self.TAG='0000' #Memory Address
+        self.TAG='1111' #Memory Address
         self.DATA=0x0 #16 Bits Data
 
     def read(self, address):

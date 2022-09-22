@@ -37,6 +37,8 @@ class Processor:
 
     def read(self,address):
         print("READ ADDRESS "+address)
+    
+
 
 #cpu_01=Processor("CPU@01")
 #cpu_01.calc()
