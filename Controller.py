@@ -5,19 +5,28 @@ from time import sleep
 
 class Controller:
     def __init__(self,ID, memory, cache):
-        self.memory=memory
+        self.MEMORY=memory
         self.CACHE=cache
         self.ID=ID
-        self.__load()
+        #self.__load()
 
-    def __calc_set(self,block_mem):
+    def get_set(self,block_mem):
         set=block_mem%(len(self.CACHE.BLOCKS))
         return set
+    
+    def load(self,address,data,state):
+        block_mem=self.MEMORY.getMemory(address)
+        set=block_mem%(len(self.CACHE.BLOCKS))
+        if(not(set)):
+            return False
+        else:
+            self.CACHE.set_block(set,address,data,state)
+            return True
 
     def __load(self):
         for i in range(len(self.CACHE.BLOCKS)):
-            set=self.__calc_set(i)
-            block_mem=self.memory.block[i]
+            set=self.get_set(i)
+            block_mem=self.MEMORY.block[i]
             self.CACHE.set_block(set,block_mem.ADDRESS,block_mem.DATA,'S')
 
             

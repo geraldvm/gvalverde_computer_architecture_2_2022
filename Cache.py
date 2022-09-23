@@ -17,13 +17,28 @@ class Cache:
         for block in self.BLOCKS:
             if(block.TAG==address):
                 return True
+        print("MISS")
         return False
     
-    def get_block(self,address):
+    def get_block_id(self,address):
         for block in self.BLOCKS:
             if(block.TAG==address):
                 return block.SET
         return -1
+    
+    def get_block(self,address):
+        for block in self.BLOCKS:
+            if(block.TAG==address):
+                return block
+        return -1
+
+    def set_block(self,set,address,data,state):
+        for block in self.BLOCKS:
+            if(block.SET==set):
+                block.TAG=address
+                block.DATA=data
+                block.STATE=state
+        
 
 
 #cash= Cache("CPU@03")

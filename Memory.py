@@ -19,10 +19,19 @@ class Memory:
         for mem in self.block:
             if(mem.ADDRESS==address):
                 mem.set_data(data)
-                break
+                return True
+        return False
     
     def getMemory(self):
         return self.block
+    
+    def getMemory(self, address):
+        pos=0
+        for mem in self.block:
+            if(mem.ADDRESS==address):
+                return pos
+            pos+=1
+        return False
     
     def iprint(self):
         for mem in self.block:
