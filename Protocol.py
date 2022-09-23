@@ -143,6 +143,8 @@ class Bus:
             self.CACHE_LIST[ind].BLOCKS[set].TAG=address
             self.CACHE_LIST[ind].BLOCKS[set].DATA=mem.DATA
     
+    
+    
     def __search_data_other_cache(self,ID, address):
         pos=0
         positions_list=[]
@@ -166,6 +168,60 @@ class Bus:
         self.CACHE_LIST[ind].BLOCKS[set].STATE='S'
         self.CACHE_LIST[ind].BLOCKS[set].DATA=data
         self.CACHE_LIST[ind].BLOCKS[set].TAG=address
+
+    def write(self, ID, address,data):
+        #STATE: EXCLUSIVE
+
+        #No existe en Caché
+        ind = self.__search_cache(ID)
+        exists=self.CACHE_LIST[ind].exists(address) 
+        state=self.CACHE_LIST[ind].STATE
+        #Existe en la actual Caché y es Exclusived
+        #Existe en la actual Caché y es Modified
+        #Existe en la actual Caché y es Shared
+        condition= (state=='E') and (state=='M') and (state=='S')
+        #No existe en memoria
+        if(0==self.__copies(address)):
+            self.__read_exclusive(ID, address)
+            print("READ MISS")
+            self.__write_modified() #Update modified
+        
+        #Existe en la actual Caché y es M
+        elif(exists and (state=='M')):
+            print("write Modified")
+            #writemodified
+        
+        #Existe en la actual Caché y es I
+        elif(exists and not(condition)):
+            print("READ MISS")
+            cache_pos,set_block=self.__search_state(address,'M')
+            data=self.CACHE_LIST[cache_pos].BLOCKS[set_block].DATA
+            print("WB")
+            self.__write_mem(address,data)
+            self.__update2share(address,data)
+      
+        #No existe en la actual pero existen copias en otras caché
+        elif(not(exists) and 0<self.__copies(address)):
+            print("READ MISS")
+            mod_pos,set_mod=self.__search_state(address,'M')
+            exc_pos, set_exc=self.__search_state(address,'E')
+            sha_pos, set_sha=self.__search_state(address,'S')
+            if(mod_pos!=-1):
+                data=self.CACHE_LIST[mod_pos].BLOCKS[set_mod].DATA
+                print("WB")
+                self.__write_mem(address,data)
+                self.__update2share(address,data)
+                #Load to ca$h
+                self.CONTROLLER_LIST[mod_pos].load(address,data,'S')
+            elif(exc_pos!=-1):
+                data=self.CACHE_LIST[exc_pos].BLOCKS[set_exc].DATA
+                self.__update2share(address,data)
+                #Load to ca$h
+                self.CONTROLLER_LIST[exc_pos].load(address,data,'S')
+            elif(sha_pos!=-1):
+                data=self.CACHE_LIST[sha_pos].BLOCKS[set_sha].DATA
+                #Load to ca$h
+                self.CONTROLLER_LIST[exc_pos].load(address,data,'S')
 
     def write(self, ID, address,data):
         self.__write_modified(ID, address,data)
