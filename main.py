@@ -90,14 +90,17 @@ cv.place(x=0,y=0)
 bg= loadImage("bg2.png")
 cv.create_image(0,0, anchor =  "nw", image = bg)  #pos x, pos y, image
 
+
+
 #cpu labels
 cpu_label1=Label(window, bg='white', fg='black', text=ID1).place(x=100,y=20)
 cpu_label2=Label(window, bg='white', fg='black', text=ID2).place(x=320,y=20)
-cpu_label3=Label(window, bg='white', fg='black', text=ID3).place(x=100,y=320)
-cpu_label4=Label(window, bg='white', fg='black', text=ID4).place(x=320,y=320)
+cpu_label3=Label(window, bg='white', fg='black', text=ID3).place(x=100,y=310)
+cpu_label4=Label(window, bg='white', fg='black', text=ID4).place(x=320,y=310)
+
 #cache1
 ins_cpu1 = Listbox(window, background="#2596be", foreground="black", height=2)
-ins_cpu1.place(x=60,y=40)
+ins_cpu1.place(x=60,y=50)
 cash_cpu1 = Listbox(window, background="white", foreground="black", height=7, width=30)
 cash_cpu1.place(x=30,y=100)
 miss_1 = Listbox(window, background="black", foreground="white", height=3)
@@ -105,7 +108,7 @@ miss_1.place(x=60,y=230)
 
 #cache2
 ins_cpu2 = Listbox(window, background="#2596be", foreground="black", height=2)
-ins_cpu2.place(x=280,y=40)
+ins_cpu2.place(x=280,y=50)
 cash_cpu2 = Listbox(window, background="white", foreground="black", height=7, width=30)
 cash_cpu2.place(x=250,y=100)
 miss_2 = Listbox(window, background="black", foreground="white", height=3)
@@ -113,26 +116,24 @@ miss_2.place(x=280,y=230)
 
 #cache3
 ins_cpu3 = Listbox(window, background="#2596be", foreground="black", height=2)
-ins_cpu3.place(x=60,y=360)
+ins_cpu3.place(x=60,y=340)
 cash_cpu3 = Listbox(window, background="white", foreground="black", height=7, width=30)
-cash_cpu3.place(x=30,y=410)
+cash_cpu3.place(x=30,y=390)
 miss_3 = Listbox(window, background="black", foreground="white", height=3)
-miss_3.place(x=60,y=510)
+miss_3.place(x=60,y=520)
 
 #cache4
 ins_cpu4 = Listbox(window, background="#2596be", foreground="black", height=2)
-ins_cpu4.place(x=280,y=360)
+ins_cpu4.place(x=280,y=340)
 cash_cpu4 = Listbox(window, background="white", foreground="black", height=7, width=30)
-cash_cpu4.place(x=250,y=410)
+cash_cpu4.place(x=250,y=390)
 miss_4 = Listbox(window, background="black", foreground="white", height=3)
-miss_4.place(x=280,y=510)
-
-
+miss_4.place(x=280,y=520)
 
 #memory
-mem_label=Label(window, bg='white', fg='black', text="MEMORY").place(x=600,y=75)
-mem_list = Listbox(window, background="white", foreground="black", height=14, width=40)
-mem_list.place(x=500,y=150)
+mem_label=Label(window, bg='white', fg='black', text="MEMORY").place(x=530,y=20)
+mem_list = Listbox(window, background="white", foreground="black", height=10, width=40)
+mem_list.place(x=500,y=80)
 
 
 auto_btn = loadImage('auto_btn.png')
@@ -149,13 +150,13 @@ next_button = Button(window, command=set_step, borderwidth=0,image=next_btn, bg=
 stop_button = Button(window, command=set_stop, text='STOP',borderwidth=0, bg='red').place(x=800,y=550)
 
 inst_1 = Entry(window, width=20)
-inst_1.place(x=600,y=400)
+inst_1.place(x=530,y=400)
 inst_2 = Entry(window, width=20)
-inst_2.place(x=600,y=420)
+inst_2.place(x=530,y=420)
 inst_3 = Entry(window, width=20)
-inst_3.place(x=600,y=440)
+inst_3.place(x=530,y=440)
 inst_4 = Entry(window, width=20)
-inst_4.place(x=600,y=460)
+inst_4.place(x=530,y=460)
 
 def get_inst():
     mt.cpu_01.INPUT_INS= inst_1.get().split()

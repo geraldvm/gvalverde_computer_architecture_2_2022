@@ -21,8 +21,8 @@ class Processor:
         print(self.ID+": Calc()")
 
     def run(self):
-        i=0
-        while (i<1):
+        
+        while (True):
             if('AUTO'==self.EXECUTION_MODE):
                 if('RUN'==self.RUN_STATE):
                     
@@ -57,7 +57,7 @@ class Processor:
                 #instruction=self.generator.
             elif('STOP'==self.EXECUTION_MODE):
                 return
-            i+=1
+            
             
 
     
