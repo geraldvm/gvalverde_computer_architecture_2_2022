@@ -29,7 +29,8 @@ class Processor:
                 
                 #print(self.ID+': '+instruction.istring()+'\n')
                 self.execute_instruction(instruction)
-                bus.CACHE_LIST[0].iprint()
+                ind=self.BUS.search_cache(self.ID)
+                self.BUS.CACHE_LIST[ind].iprint()
                 sleep(self.TIMER)
                 
             else:
@@ -58,11 +59,9 @@ class Processor:
     def read(self,address):
         print("READ ADDRESS "+address)
     
-    def test(self):
-        print("SSSSS")
-    
 
 
+"""
 #cpu_01=Processor("CPU@01")
 #cpu_01.calc()
 ID1="CPU@01"
@@ -81,3 +80,4 @@ mem.write('1000','0x999')
 bus= Bus(controller_list,mem)
 proc=Processor(ID1,bus,0)
 proc.run()
+"""

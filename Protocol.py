@@ -25,7 +25,7 @@ class Bus:
         return n_copies
 
     # Search cache by ID
-    def __search_cache(self,ID):
+    def search_cache(self,ID):
         pos=0
         for cache in self.CACHE_LIST:
             if(cache.ID==ID):
@@ -85,7 +85,7 @@ class Bus:
         #STATE: EXCLUSIVE
 
         #No existe en Caché
-        ind = self.__search_cache(ID)
+        ind = self.search_cache(ID)
         exists=self.CACHE_LIST[ind].exists(address) 
         set_block=self.CACHE_LIST[ind].get_block_id(address)
         state=self.CACHE_LIST[ind].BLOCKS[set_block].STATE
@@ -138,7 +138,7 @@ class Bus:
                 self.CONTROLLER_LIST[ind].load(address,data,'S')
 
     def __set_is_modified(self,ID,new_address):
-        ind = self.__search_cache(ID)
+        ind = self.search_cache(ID)
         set_block=self.CONTROLLER_LIST[ind].get_set_address(new_address)
         state=self.CACHE_LIST[ind].BLOCKS[set_block].STATE
         
@@ -155,7 +155,7 @@ class Bus:
     def __read_exclusive(self, ID, address):
         # STATE: Exclusive
         # Read from memory
-        ind = self.__search_cache(ID)
+        ind = self.search_cache(ID)
         mem_pos=self.MEMORY.getMemory(address)
         if(-1!=mem_pos):
             #set=self.CONTROLLER_LIST[ind].get_set(mem_pos)
@@ -181,7 +181,7 @@ class Bus:
     def __read_shared(self, ID, address):
         # STATE: Shared
         positions_list = self.__search_data_other_cache(ID,address)
-        ind = self.__search_cache(ID)
+        ind = self.search_cache(ID)
         for pos in positions_list:
             set=self.CACHE_LIST[pos].get_block_id(address)
             self.CACHE_LIST[pos].BLOCKS[set].STATE='S'
@@ -195,7 +195,7 @@ class Bus:
     def write(self, ID, address,data):
         #STATE: EXCLUSIVE
         #No existe en Caché
-        ind = self.__search_cache(ID)
+        ind = self.search_cache(ID)
         exists=self.CACHE_LIST[ind].exists(address) 
         set_block=self.CACHE_LIST[ind].get_block_id(address)
         state=self.CACHE_LIST[ind].BLOCKS[set_block].STATE
@@ -257,7 +257,7 @@ class Bus:
         # STATE: Modified
         #Search in all caches where store mem address input
         positions_list = self.__search_data_other_cache(ID,address)
-        ind = self.__search_cache(ID)
+        ind = self.search_cache(ID)
         for pos in positions_list:
             set=self.CONTROLLER_LIST[pos].get_set_address(address)
             self.CACHE_LIST[pos].BLOCKS[set].STATE='I'
