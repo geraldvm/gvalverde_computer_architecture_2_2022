@@ -1,20 +1,19 @@
 from time import sleep
-from Cache import Cache
-from Controller import Controller
 from InstGenerator import InstructionGenerator
 
 from Instruction import *
-from Memory import Memory
-from Protocol import Bus
+
 
 class Processor:
     def __init__(self,id,bus,timer):
         self.ID=id
         self.generator=InstructionGenerator(self.ID)
-        self.EXCECUTION_MODE=0x200
+        self.EXECUTION_MODE='AUTO'
         self.TIMER=timer
         self.BUS=bus
         self.INSTRUCTION=Instruction(self.ID)
+        self.RUN_STATE='RUN'
+        self.INPUT_INS=['','','']
         #0x100 -> MANUAL
         #0x200 -> AUTOMATIC
     
@@ -23,24 +22,43 @@ class Processor:
 
     def run(self):
         i=0
-        while i<5:
-            if(0x200==self.EXCECUTION_MODE):
-                self.generator.auto_generate()
-                self.INSTRUCTION=self.generator.instruction
+        while (i<10):
+            if('AUTO'==self.EXECUTION_MODE):
+                if('RUN'==self.RUN_STATE):
+                    
+                    self.generator.auto_generate()
+                    self.INSTRUCTION=self.generator.instruction
+                    self.execute_instruction(self.INSTRUCTION)
+                    sleep(self.TIMER)
+
+                elif('PAUSE'==self.RUN_STATE):
+                    #print("PAUSE")
+                    sleep(self.TIMER/10)
                 
-                #print(self.ID+': '+instruction.istring()+'\n')
-                self.execute_instruction(self.INSTRUCTION)
-                ind=self.BUS.search_cache(self.ID)
-                #self.BUS.CACHE_LIST[ind].iprint()
-                sleep(self.TIMER)
+                elif('STEP'==self.RUN_STATE):
+                    self.generator.auto_generate()
+                    self.INSTRUCTION=self.generator.instruction
+                    self.execute_instruction(self.INSTRUCTION)
+                    self.RUN_STATE='PAUSE'
+                    print("STEP")
+                    sleep(self.TIMER)
                 
-            else:
+            elif('MAN'==self.EXECUTION_MODE):
                 print("MANUAL EXCECUTION MODE")
-                self.INSTRUCTION = self.generator.man_generate()
-                #print(self.ID+': '+instruction.istring()+'\n')
+                if('READ'==self.INPUT_INS[0]):
+                    self.INSTRUCTION = self.generator.generate_read(self.INPUT_INS[1])
+                if('WRITE'==self.INPUT_INS[0]):
+                    self.INSTRUCTION = self.generator.generate_write(self.INPUT_INS[1],self.INPUT_INS[2])
+                else:
+                    self.INSTRUCTION = self.generator.generate_calc()
+                self.execute_instruction(self.INSTRUCTION)
                 sleep(self.TIMER)
+                self.EXECUTION_MODE='0'
                 #instruction=self.generator.
+            elif('STOP'==self.EXECUTION_MODE):
+                return
             i+=1
+            
 
     
     def write(self,address,data):

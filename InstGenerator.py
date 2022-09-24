@@ -8,6 +8,7 @@ class InstructionGenerator:
         self.__WRITE_OPERATION=1
         self.__CALC_OPERATION=2
         self.PROC_ID=processor_id
+        
 
     def Poisson_distribution(self, x, lam=1):
         fact = math.factorial(x)
@@ -37,21 +38,21 @@ class InstructionGenerator:
             self.instruction.set_address(addr)
         return self.instruction
 
-    def man_generate(self):
+    def generate_calc(self):
         self.instruction.set_operation(self.__CALC_OPERATION)
         self.instruction.set_address(8)
         self.instruction.set_data(-1)
         return self.instruction
 
-    def man_generate(self, address):
+    def generate_read(self, address):
         self.instruction.set_operation(self.__READ_OPERATION)
-        self.instruction.set_address(address)
+        self.instruction.set_address_man(address)
         self.instruction.set_data(-1)
         return self.instruction
     
-    def man_generate(self, address, data):
+    def generate_write(self, address, data):
         self.instruction.set_operation(self.__WRITE_OPERATION)
-        self.instruction.set_address(address)
+        self.instruction.set_address_man(address)
         self.instruction.set_data(data)
         return self.instruction
         

@@ -19,8 +19,6 @@ ID4="CPU@04"
 TIMER=5
 mt = Multiprocessor(ID1,ID2,ID3,ID4,TIMER)
 
-
-
 #***************Cargar Imagenes***********************
 #Entrada: Nombre de la imagen
 #Restricciones: el nombre de la imagen debe ser formato str
@@ -32,6 +30,44 @@ def loadImage(filename):
 #***************button function***********************
 def hello():
     print("Hello world!")
+    
+def set_run():
+    mt.cpu_02.RUN_STATE='RUN'
+    mt.cpu_01.RUN_STATE='RUN'
+    mt.cpu_03.RUN_STATE='RUN'
+    mt.cpu_04.RUN_STATE='RUN'
+
+def set_step():
+    mt.cpu_02.RUN_STATE='STEP'
+    mt.cpu_01.RUN_STATE='STEP'
+    mt.cpu_03.RUN_STATE='STEP'
+    mt.cpu_04.RUN_STATE='STEP'
+
+def set_pause():
+    mt.cpu_02.RUN_STATE='PAUSE'
+    mt.cpu_01.RUN_STATE='PAUSE'
+    mt.cpu_03.RUN_STATE='PAUSE'
+    mt.cpu_04.RUN_STATE='PAUSE'
+
+def set_auto():
+    mt.cpu_02.EXECUTION_MODE='AUTO'
+    mt.cpu_01.EXECUTION_MODE='AUTO'
+    mt.cpu_03.EXECUTION_MODE='AUTO'
+    mt.cpu_04.EXECUTION_MODE='AUTO'
+
+def set_manual():
+    mt.cpu_02.EXECUTION_MODE='MAN'
+    mt.cpu_01.EXECUTION_MODE='MAN'
+    mt.cpu_03.EXECUTION_MODE='MAN'
+    mt.cpu_04.EXECUTION_MODE='MAN'
+    get_inst()
+
+def set_stop():
+    mt.cpu_02.EXECUTION_MODE='STOP'
+    mt.cpu_01.EXECUTION_MODE='STOP'
+    mt.cpu_03.EXECUTION_MODE='STOP'
+    mt.cpu_04.EXECUTION_MODE='STOP'
+
 
 #***********Ventana Principal*************************
 #configuracion de ventana principal
@@ -101,12 +137,27 @@ pause_btn = loadImage('pause_btn.png')
 run_btn = loadImage('run_btn.png')
 next_btn = loadImage('nxt_btn.png')
 
-automode_button = Button(window, command=hello, borderwidth=0, image=auto_btn, bg='black').place(x=800,y=25)
-manualmode_button = Button(window, command=hello, borderwidth=0, image=manual_btn, bg='black').place(x=800,y=85)
-pause_button = Button(window, command=hello, borderwidth=0, image=pause_btn, bg='black').place(x=800,y=200)
-run_button = Button(window, command=hello, borderwidth=0, image=run_btn, bg='black').place(x=800,y=300)       
-next_button = Button(window, command=hello, borderwidth=0,image=next_btn, bg='black').place(x=800,y=400)
+automode_button = Button(window, command=set_auto, borderwidth=0, image=auto_btn, bg='black').place(x=800,y=25)
+manualmode_button = Button(window, command=set_manual, borderwidth=0, image=manual_btn, bg='black').place(x=800,y=85)
+pause_button = Button(window, command=set_pause, borderwidth=0, image=pause_btn, bg='black').place(x=800,y=200)
+run_button = Button(window, command=set_run, borderwidth=0, image=run_btn, bg='black').place(x=800,y=300)       
+next_button = Button(window, command=set_step, borderwidth=0,image=next_btn, bg='black').place(x=800,y=400)
+stop_button = Button(window, command=set_stop, text='STOP',borderwidth=0, bg='red').place(x=800,y=550)
 
+inst_1 = Entry(window, width=20)
+inst_1.place(x=50,y=500)
+inst_2 = Entry(window, width=20)
+inst_2.place(x=100,y=500)
+inst_3 = Entry(window, width=20)
+inst_3.place(x=200,y=500)
+inst_4 = Entry(window, width=20)
+inst_4.place(x=300,y=500)
+
+def get_inst():
+    mt.cpu_01.INPUT_INS= inst_1.get().split()
+    mt.cpu_02.INPUT_INS= inst_2.get().split()
+    mt.cpu_03.INPUT_INS= inst_3.get().split()
+    mt.cpu_04.INPUT_INS= inst_4.get().split()
 
 
 
@@ -114,7 +165,6 @@ def main():
     
     mt.run()
     while(1):
-        #mt.BUS.CACHE_LIST[0].iprint()
         update_cash(cash_cpu1,mt.BUS.CACHE_LIST[0].istring())
         update_cash(cash_cpu2,mt.BUS.CACHE_LIST[1].istring())
         update_cash(cash_cpu3,mt.BUS.CACHE_LIST[2].istring())

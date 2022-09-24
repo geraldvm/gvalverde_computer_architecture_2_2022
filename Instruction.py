@@ -13,6 +13,9 @@ class Instruction:
 
     def set_address(self, address):
         self.ADDRESS=self.__mem_addr[address]
+
+    def set_address_man(self, address):
+        self.ADDRESS=address
     
     def set_data(self, data):
         self.DATA=data
