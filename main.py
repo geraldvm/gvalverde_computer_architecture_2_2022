@@ -16,7 +16,7 @@ ID1="CPU@01"
 ID2="CPU@02"
 ID3="CPU@03"
 ID4="CPU@04"
-TIMER=0
+TIMER=5
 mt = Multiprocessor(ID1,ID2,ID3,ID4,TIMER)
 
 
@@ -29,7 +29,9 @@ def loadImage(filename):
     path = os.path.join('images',filename)
     imagen = PhotoImage(file=path)
     return imagen
-
+#***************button function***********************
+def hello():
+    print("Hello world!")
 
 #***********Ventana Principal*************************
 #configuracion de ventana principal
@@ -93,6 +95,21 @@ mem_label=Label(window, bg='white', fg='black', text="MEMORY").place(x=600,y=75)
 mem_list = Listbox(window, background="white", foreground="black", height=19)
 mem_list.place(x=600,y=150)
 
+auto_btn = loadImage('auto_btn.png')
+manual_btn = loadImage('manual_btn.png')
+pause_btn = loadImage('pause_btn.png')
+run_btn = loadImage('run_btn.png')
+next_btn = loadImage('nxt_btn.png')
+
+automode_button = Button(window, command=hello, borderwidth=0, image=auto_btn, bg='black').place(x=800,y=25)
+manualmode_button = Button(window, command=hello, borderwidth=0, image=manual_btn, bg='black').place(x=800,y=85)
+pause_button = Button(window, command=hello, borderwidth=0, image=pause_btn, bg='black').place(x=800,y=200)
+run_button = Button(window, command=hello, borderwidth=0, image=run_btn, bg='black').place(x=800,y=300)       
+next_button = Button(window, command=hello, borderwidth=0,image=next_btn, bg='black').place(x=800,y=400)
+
+
+
+
 def main():
     
     mt.run()
@@ -110,6 +127,10 @@ def main():
         update_miss(miss_3,mt.BUS.WRITE_MISS[2],mt.BUS.READ_MISS[2])
         update_miss(miss_4,mt.BUS.WRITE_MISS[3],mt.BUS.READ_MISS[3])
 
+        update_inst(ins_cpu1,mt.cpu_01.INSTRUCTION.istring())
+        update_inst(ins_cpu2,mt.cpu_02.INSTRUCTION.istring())
+        update_inst(ins_cpu3,mt.cpu_03.INSTRUCTION.istring())
+        update_inst(ins_cpu4,mt.cpu_04.INSTRUCTION.istring())
         time.sleep(3)
 
 
@@ -133,6 +154,12 @@ def update_miss(listbox,write,read):
     listbox.insert(0,'')
     listbox.insert(1,'WRITE MISS: '+str(write))
     listbox.insert(2,'READ MISS: '+str(read))
+
+def update_inst(listbox,instruction):
+    listbox.delete(0, END)
+    listbox.insert(0,'')
+    listbox.insert(0,instruction)
+
 
 main_th = threading.Thread(target=main)
 main_th.start()        

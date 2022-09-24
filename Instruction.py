@@ -27,7 +27,6 @@ class Instruction:
     
     def istring(self):
         if(self.OPERATION=="WRITE"):
-            hexa=hex(self.DATA)
             return self.OPERATION+' '+self.ADDRESS+';'+self.DATA
         elif(self.OPERATION=="READ"):
             return self.OPERATION+' '+self.ADDRESS
