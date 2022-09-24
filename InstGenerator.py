@@ -1,4 +1,4 @@
-import time, math, random, threading
+import math, random
 from Instruction import *
 class InstructionGenerator:
     def __init__(self,processor_id):

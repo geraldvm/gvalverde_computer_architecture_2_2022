@@ -267,9 +267,7 @@ class Bus:
         self.CACHE_LIST[ind].BLOCKS[set].DATA=data
         self.CACHE_LIST[ind].BLOCKS[set].TAG=address
         
-        
-        
-|
+ 
 
 """
 

@@ -48,5 +48,4 @@ class Instruction:
         self.OPERATION="calc"
         self.DATA=0x0
         self.ADDRESS=0000
-        print("CALC")
         return 0

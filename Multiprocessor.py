@@ -1,6 +1,9 @@
 import threading
 
 from Processor import *
+from Memory import *
+from Controller import *
+from Protocol import *
 
 class Multiprocessor:
     def __init__(self,id_1,id_2,id_3,id_4,timer):
