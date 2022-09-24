@@ -22,7 +22,7 @@ class Processor:
 
     def run(self):
         i=0
-        while (i<10):
+        while (i<1):
             if('AUTO'==self.EXECUTION_MODE):
                 if('RUN'==self.RUN_STATE):
                     
