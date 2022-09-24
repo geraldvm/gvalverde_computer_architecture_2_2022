@@ -17,7 +17,6 @@ class Cache:
         for block in self.BLOCKS:
             if(block.TAG==address):
                 return True
-        print("MISS")
         return False
     
     def get_block_id(self,address):

@@ -14,14 +14,18 @@ class Controller:
         set=block_mem%(len(self.CACHE.BLOCKS))
         return set
     
+    def get_set_address(self,address):
+        block_mem=self.MEMORY.getMemory(address)
+        set=block_mem%(len(self.CACHE.BLOCKS))
+        return set
+
+    
     def load(self,address,data,state):
         block_mem=self.MEMORY.getMemory(address)
         set=block_mem%(len(self.CACHE.BLOCKS))
-        if(not(set)):
-            return False
-        else:
-            self.CACHE.set_block(set,address,data,state)
-            return True
+     
+        self.CACHE.set_block(set,address,data,state)
+        return True
 
     def __load(self):
         for i in range(len(self.CACHE.BLOCKS)):
@@ -32,7 +36,7 @@ class Controller:
             
 
 
-
+"""
 mem= Memory(0)
 mem.write('0100',0x58)
 mem.write('0000',0x969)
@@ -46,3 +50,5 @@ print("-----------------------------------------")
 cache_list[0].iprint()
 print("-----------------------------------------")
 cache_list[0].iprint()
+
+"""
