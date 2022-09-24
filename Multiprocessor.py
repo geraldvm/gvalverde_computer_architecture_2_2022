@@ -32,9 +32,12 @@ class Multiprocessor:
         th3.start()
         th4.start()
     
+   
+
+    
     def test(self):
         self.cpu_01.test()
-
+"""
 ID1="CPU@01"
 ID2="CPU@02"
 ID3="CPU@03"
@@ -42,4 +45,4 @@ ID4="CPU@04"
 TIMER=0
 mt = Multiprocessor(ID1,ID2,ID3,ID4,TIMER)
 mt.run()
-
+"""

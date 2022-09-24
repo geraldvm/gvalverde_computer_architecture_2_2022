@@ -12,6 +12,12 @@ class Cache:
         for cash in self.BLOCKS:
             print('¦ '+cash.ID+' ¦   '+str(cash.SET)+'   ¦    '+cash.STATE+'    ¦    '+cash.TAG+'   ¦ '+cash.DATA+' ¦ \n')
 
+    def istring(self):
+        result=['¦  SET  ¦  STATE  ¦    TAG    ¦    DATA    ¦\n']
+        for cash in self.BLOCKS:
+            temp='¦   '+str(cash.SET)+'   ¦    '+cash.STATE+'    ¦    '+cash.TAG+'   ¦ '+cash.DATA+' ¦ \n'
+            result+=[temp]
+        return result
     
     def exists(self,address):
         for block in self.BLOCKS:

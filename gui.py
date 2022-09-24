@@ -1,10 +1,46 @@
+import threading
 from tkinter import *
 from tkinter import messagebox
 import tkinter.scrolledtext as scrolledtext
 import os
 import sys
 
+from Multiprocessor import Multiprocessor
+
+
+class StopThread(StopIteration):
+    pass
+threading.SystemExit = SystemExit, StopThread
+
+class Thread3(threading.Thread):
+
+    def _bootstrap(self, stop_thread=False):
+        def stop():
+            nonlocal stop_thread
+            stop_thread = True
+        self.stop = stop
+
+        def tracer(*_):
+            if stop_thread:
+                raise StopThread()
+            return tracer
+        sys.settrace(tracer)
+        super()._bootstrap()
+
+
+ID1="CPU@01"
+ID2="CPU@02"
+ID3="CPU@03"
+ID4="CPU@04"
+TIMER=0
+mt = Multiprocessor(ID1,ID2,ID3,ID4,TIMER)
+#mt.run()
+
+global thread_instr0  
+
+
 #Variables *******************************************
+global instr0
 instr0 = 'READ 000'
 cpu = '01'
 id0 = 'cpu01'
@@ -95,6 +131,21 @@ st31=1
 st32=2
 st33=3
 
+def show_instr0(instr_label):
+    try:
+        while(True):        
+            
+            inst=mt.cpu_01.INSTRUCTION.istring()
+            instr_label.config(text=inst)
+    except StopThread:
+        return
+
+def threadinstr0(instr_label): 
+    global thread_instr0   
+    thread_instr0=Thread3(target=show_instr0, args=(instr_label,))
+    thread_instr0.start()   
+
+
 #***************button function***********************
 def hello():
     print("Hello world!")
@@ -143,7 +194,9 @@ run_button = Button(window, command=hello, borderwidth=0, image=run_btn, bg='bla
 next_button = Button(window, command=hello, borderwidth=0,image=next_btn, bg='black').place(x=85,y=145)
 
 #Labels
-instr0_label=Label(window, bg='white', fg='black', text=(instr0)).place(x=130,y=258)
+instr0_label=Label(window, bg='white', fg='black', text=(instr0))
+instr0_label.place(x=130,y=258)
+threadinstr0(instr0_label)
 cpu_label=Label(window, bg='white', fg='black', text=cpu).place(x=60,y=322)
 id0_label=Label(window, bg='white', fg='black', text=id0).place(x=590,y=40)
 id1_label=Label(window, bg='white', fg='black', text=id1).place(x=830,y=40)
@@ -236,6 +289,9 @@ st33_label=Label(window, bg='white', fg='black', text=st33).place(x=970,y=535)
 #Entries
 freq_entry = Entry(window, width = 20).place(x = 130, y = 404)
 instr1_entry = Entry(window, width = 20).place(x = 130, y = 486)
+
+
+
 
 
 window.mainloop()

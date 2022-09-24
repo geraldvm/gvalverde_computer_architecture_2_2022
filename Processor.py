@@ -14,6 +14,7 @@ class Processor:
         self.EXCECUTION_MODE=0x200
         self.TIMER=timer
         self.BUS=bus
+        self.INSTRUCTION=Instruction(self.ID)
         #0x100 -> MANUAL
         #0x200 -> AUTOMATIC
     
@@ -25,17 +26,17 @@ class Processor:
         while i<5:
             if(0x200==self.EXCECUTION_MODE):
                 self.generator.auto_generate()
-                instruction=self.generator.instruction
+                self.INSTRUCTION=self.generator.instruction
                 
                 #print(self.ID+': '+instruction.istring()+'\n')
-                self.execute_instruction(instruction)
+                self.execute_instruction(self.INSTRUCTION)
                 ind=self.BUS.search_cache(self.ID)
-                self.BUS.CACHE_LIST[ind].iprint()
+                #self.BUS.CACHE_LIST[ind].iprint()
                 sleep(self.TIMER)
                 
             else:
                 print("MANUAL EXCECUTION MODE")
-                instruction = self.generator.man_generate()
+                self.INSTRUCTION = self.generator.man_generate()
                 #print(self.ID+': '+instruction.istring()+'\n')
                 sleep(self.TIMER)
                 #instruction=self.generator.
