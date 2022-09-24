@@ -9,6 +9,8 @@ class Bus:
         self.CONTROLLER_LIST=controller_list
         self.CACHE_LIST=self.__get_cache_list(self.CONTROLLER_LIST)
         self.MEMORY=memory
+        self.WRITE_MISS=[0,0,0,0]
+        self.READ_MISS=[0,0,0,0]
 
     def __get_cache_list(self,controller_list):
         cash_list=[]
@@ -97,6 +99,7 @@ class Bus:
         if(0==self.__copies(address)):
             self.__set_is_modified(ID,address)
             self.__read_exclusive(ID, address)
+            self.READ_MISS[ind]+=1
             print("READ MISS")
         
         #Existe en la actual Caché y es E || M || S
@@ -106,6 +109,7 @@ class Bus:
         #Existe en la actual Caché y es I
         elif(exists and not(condition)):
             print("READ MISS")
+            self.READ_MISS[ind]+=1
             cache_pos,set_block=self.__search_state(address,'M')
             data=self.CACHE_LIST[cache_pos].BLOCKS[set_block].DATA
             print("WB")
@@ -115,6 +119,7 @@ class Bus:
         #No existe en la actual pero existen copias en otras caché
         elif(not(exists) and 0<self.__copies(address)):
             print("READ MISS")
+            self.READ_MISS[ind]+=1
             mod_pos,set_mod=self.__search_state(address,'M')
             exc_pos, set_exc=self.__search_state(address,'E')
             sha_pos, set_sha=self.__search_state(address,'S')
@@ -207,7 +212,8 @@ class Bus:
         if(0==self.__copies(address)):
             self.__set_is_modified(ID,address)
             self.__read_exclusive(ID, address)
-            print("READ MISS")
+            print("WRITE MISS")
+            self.WRITE_MISS[ind]+=1
             self.__write_modified(ID, address,data) #Update modified
         
         #Existe en la actual Caché y es M
@@ -219,10 +225,11 @@ class Bus:
         elif(exists and (state=='S')):
             print("write Modified")
             self.__write_modified(ID, address,data)
-        
+
         #Existe en la actual Caché y es I 
         elif(exists and (state=='I')):
             print("Write MISS")
+            self.WRITE_MISS[ind]+=1
             cache_pos,set_block=self.__search_state(address,'M')
             data_temp=self.CACHE_LIST[cache_pos].BLOCKS[set_block].DATA
             print("WB")
@@ -232,6 +239,7 @@ class Bus:
         #No existe en la actual pero existen copias en otras caché
         elif(not(exists) and 0<self.__copies(address)):
             print("Write MISS")
+            self.WRITE_MISS[ind]+=1
             mod_pos,set_mod=self.__search_state(address,'M')
             exc_pos, set_exc=self.__search_state(address,'E')
             sha_pos, set_sha=self.__search_state(address,'S')

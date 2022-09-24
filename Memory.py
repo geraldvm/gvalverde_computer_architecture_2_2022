@@ -37,6 +37,13 @@ class Memory:
         for mem in self.block:
             print('¦ '+mem.ADDRESS+': '+hex(mem.DATA)+' ¦\n')
 
+    def istring(self):
+        result=['¦  ADDRESS  ¦  DATA    ¦\n']
+        for mem in self.block:
+            temp='¦ '+mem.ADDRESS+'    ¦    '+mem.DATA+' ¦\n'
+            result+=[temp]
+        return result
+
 #mem= Memory(5)
 #mem.set_block('0000',58)
 #print(mem.get_block('0000').get_data())
